@@ -6,7 +6,6 @@ ENV BISON_VERSION v3.8.2
 ENV AUTOCONF_VERSION 2.71
 
 RUN set -eux; \
-    savedAptMark="$(apt-mark showmanual)"; \
     mkdir -p /usr/src; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -50,7 +49,7 @@ RUN set -eux; \
 	cd /; \
     \
     apt-mark auto '.*' > /dev/null; \
-    [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
+    apt-mark manual m4 > /dev/null; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
